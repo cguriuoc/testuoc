@@ -1,0 +1,32 @@
+version: '3.4'
+services:
+  nifi-registry:
+    image: apache/nifi-registry:1.16.0    # or a compatible version
+    container_name: nifi-registry
+    ports:
+      - "18080:18080"
+    volumes:
+      - ./registry-data:/opt/nifi-registry/nifi-registry-current/database
+      - ./registry-flows:/opt/nifi-registry/nifi-registry-current/flow-storage
+    environment:
+      - NIFI_REGISTRY_WEB_HTTP_PORT=18080
+    networks:
+      - nifi-net
+
+  nifi:
+    image: apache/nifi:1.16.2            # NiFi version 1.16.x
+    container_name: nifi-1.16
+    ports:
+      - "8080:8080"
+    environment:
+      - NIFI_WEB_HTTP_PORT=8080
+      - NIFI_REGISTRY_URL=http://nifi-registry:18080
+    depends_on:
+      - nifi-registry
+    networks:
+      - nifi-net
+
+networks:
+  nifi-net:
+    driver: bridge
+
