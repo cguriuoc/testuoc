@@ -21,6 +21,8 @@ services:
     environment:
       - NIFI_WEB_HTTP_PORT=8080
       - NIFI_REGISTRY_URL=http://nifi-registry:18080
+    volumes:
+      - ./nar:/opt/nifi/nifi-current/extensions
     depends_on:
       - nifi-registry
     networks:
