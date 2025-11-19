@@ -14,8 +14,8 @@ services:
       - nifi-net
 
   nifi:
-    image: apache/nifi:1.16.2            # NiFi version 1.16.x
-    container_name: nifi-1.16
+    image: apache/nifi:1.12.1            # NiFi version 1.16.x
+    container_name: nifi-1.12
     ports:
       - "8080:8080"
     environment:
